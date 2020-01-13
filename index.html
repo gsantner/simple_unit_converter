@@ -2,7 +2,9 @@
 <html lang="en">
 
     <head>
+  <link rel="icon" href="favicon.ico">
         <title>Simple Unit Converter</title>
+        <meta charset="utf-8">
         <meta name="Description" content="Simple Unit Converter - A simple, right-to-the-point, easy-to-use online unit converter.
 
         You can convert just about anything.
@@ -104,7 +106,7 @@
         <meta name="keywords" content="unit, converter, simple, easy, fast, Area, Energy, Temperature, Length, Weight, Speed, Volume, Time">
         <meta name="author" content="Ricardo Fabila">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta charset="utf-8">
+
         <!-- JS & CSS-->
         <script src="./bower_components/angular/angular.js"></script>
         <script src="./bower_components/jquery/dist/jquery.min.js"></script>
@@ -120,22 +122,6 @@
         <div>
             <form name="form" ng-controller="MainCtrl" novalidate>
 
-                <!-- Images-->
-
-                <ng-switch on="type">
-                    <div ng-switch-when="none">
-                        <div id="over">
-                            <span class="Centerer"></span><img class="Centered images balance" ng-src="images/Balance.svg" alt="Simple Unit Converter"/>
-                        </div>
-                    </div>
-                    <div ng-switch-default>
-                        <div id="over">
-                            <span class="Centerer"></span><img class="Centered images" ng-src="images/{{type}}.png" alt="{{type}}"/>
-                        </div>
-                    </div>
-                </ng-switch>
-
-
                 <!--
                 <div id="over">
                     <span class="Centerer"></span><img class="Centered images" ng-src="images/{{type}}.png" alt="{{type}}"/>
@@ -144,7 +130,7 @@
                 <!-- /Images-->
 
                 <!-- break line to separate elements using bootstrap-->
-                <div class="clearfix separator" style="margin: 20px"></div>
+                <div class="clearfix" style=""></div>
 
                 <!-- Type select combo box-->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -275,8 +261,8 @@
                 <div class="clearfix separator" style="margin: 10px"></div>
 
                 <!-- Text input -->
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 bottom-space" >
-                    <input class="form-control" type="text" ng-model="inputUnit" placeholder="0" valid-number required="true" autofocus>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 bottom-space inputUnitField" >
+                    <input class="form-control" type="number" ng-model="inputUnit" placeholder="0" valid-number required="true">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 bottom-space">
                     <div class="input-group">
@@ -295,18 +281,36 @@
                 <!-- /Field required warning -->
 
                 <!-- Buttons -->
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="left:15%">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="convert(type, from, to, inputUnit)">Convert</button>
-                    <button type="button" class="btn btn-danger btn-lg btn-block" ng-click="invert(type, from, to, inputUnit)">Invert</button>
+                <div class="btn-group" style="left: 15%;">
+                    <button type="button" id="calcbutton" style="float:none;" class="btn btn-primary btn-lg" ng-click="convert(type, from, to, inputUnit)">Convert</button>
+                    <button type="button" style="float: none;" class="btn btn-danger btn-lg" ng-click="invert(type, from, to, inputUnit)">Invert</button>
                 </div>
                 <!-- /Buttons -->
+
+
+                <!-- Images-->
+
+            <div class="clearfix separator" style="margin: 10px"></div>
+                <ng-switch on="type">
+                    <div ng-switch-when="none">
+                        <div id="over">
+                            <span class="Centerer"></span><img class="Centered images balance" ng-src="images/Balance.svg" alt="Simple Unit Converter" style="" class="oidaoida"/>
+                        </div>
+                    </div>
+                    <div ng-switch-default>
+                        <div id="over">
+                            <span class="Centerer"></span><img class="Centered images" ng-src="images/{{type}}.png" alt="{{type}}" class="oidaoida"/>
+                        </div>
+                    </div>
+                </ng-switch>
+
             </form>
 
             <!-- break line to separate elements using bootstrap-->
             <div class="clearfix separator" style="margin: 10px"></div>
         </div>
 
-        <p style="text-align: center; color: #bfbcbc;">Made with &hearts; by Ricardo Fabila</p>
+        <p style="text-align: center; color: #bfbcbc;">Made with &hearts; by Ricardo Fabila<br/>Improved for Mobile usage by gsantner</p>
         </main>
 
         <script>
@@ -322,5 +326,47 @@
         console.log("It seams the copy to clipboard funciton is not working correctly.");
         });
         </script>
+
+<style>
+#over > imog{
+	min-width: 128px;
+	max-width: 128px;
+}
+select {
+	min-height: 80px;
+}
+.main {
+top: 0%;
+transform: translate(-50%, 0%);
+}
+</style>
+
+<script>
+	function biggerselectset() { 
+		Array.from(document.getElementsByTagName("select")).forEach(function(item) { 
+			item.size = item.length;
+		});
+	}
+	function biggerselect() {
+		if( /Android|mobile|Mobile|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			for (var t in [10, 100, 300, 800]) {
+				setTimeout(biggerselectset, t);
+			}
+			setInterval(biggerselectset, 1000);
+		}
+	}
+	window.addEventListener('load', biggerselect);
+
+
+
+document.getElementsByClassName("inputUnitField")[0].children[0].addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  //if (event.keyCode === 13) {
+    // Trigger the button element with a click
+    document.getElementById("calcbutton").click();
+  //}
+}); 
+
+</script>
     </body>
 </html>

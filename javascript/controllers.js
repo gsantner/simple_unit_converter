@@ -5,10 +5,10 @@ var app = angular.module('app', []);
 //The converter
 app.controller('MainCtrl', function($scope) {
 
-    $scope.type = 'none';
+    $scope.type = 'Length';
 
-    $scope.typeArray = ['Area', 'Computer Storage', 'Energy', 'Length', 'Speed',
-                       'Temperature', 'Time', 'Volume', 'Weight'];
+    $scope.typeArray = ['Length', 'Temperature', 'Area', 'Computer Storage', 'Energy', 'Speed',
+                        'Time', 'Volume', 'Weight'];
 
     $scope.areaArray = ['Square Mile', 'Square Yard', 'Square Foot',
                       'Square Inch', 'Hectarea', 'Acre', 'Square Kilometer',
@@ -21,8 +21,7 @@ app.controller('MainCtrl', function($scope) {
                          'Kilogram-Calorie', 'Kilogram-Meter', 'Kilowatt-Hour', 
                          'Newton-Meter', 'Watt-Hour'];
 
-    $scope.lengthArray = ['Mile', 'Yard', 'Foot', 'Inche', 'Kilometer', 'Meter',
-                         'Centimeter', 'Millimeter'];
+    $scope.lengthArray = ['Inche', 'Millimeter', 'Centimeter', 'Meter','Kilometer', 'Mile', 'Yard', 'Foot'];
 
     $scope.weightArray = ['Short Ton (US)', 'Pound (US)', 'Ounce (US)', 'Stone',
                          'Long Ton (UK)', 'Metric Ton', 'Kilogram', 'Gram'];
@@ -765,8 +764,9 @@ app.directive('validNumber', function() {
                 if (angular.isUndefined(val)) {
                   var val = '';
                 }
-
-                var clean = val.replace(/[^-0-9\.]/g, '');
+		if (val == undefined) { val = document.getElementsByClassName("inputUnitField")[0].children[0].value.toString(); }
+		if (val == undefined) { val=''; }
+                var clean = val.toString().replace(/[^-0-9\.]/g, '');
                 var negativeCheck = clean.split('-');
                 var decimalCheck = clean.split('.');
                 if (!angular.isUndefined(negativeCheck[1])) {
